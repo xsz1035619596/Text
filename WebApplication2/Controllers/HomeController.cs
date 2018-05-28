@@ -10,7 +10,7 @@ namespace WebApplication2.Controllers
     {
         /// <summary> 
         /// 主页的xsz 
-        /// </summary>
+        /// </summary> 
         /// <returns></returns>
         public ActionResult Index()
         {   
