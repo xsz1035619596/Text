@@ -8,8 +8,8 @@ namespace WebApplication2.Controllers
 {
     public class HomeController : Controller
     {
-        /// <summary>
-        /// 主页
+        /// <summary> 
+        /// 主ye 
         /// </summary>
         /// <returns></returns>
         public ActionResult Index()
