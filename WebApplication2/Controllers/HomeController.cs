@@ -9,7 +9,7 @@ namespace WebApplication2.Controllers
     public class HomeController : Controller
     {
         /// <summary> 
-        /// 主页的xsz and qhj    
+        /// 主页的xsz   
         /// </summary>
         /// <returns></returns>
         public ActionResult Index()
