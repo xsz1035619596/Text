@@ -16,7 +16,10 @@ namespace WebApplication2.Controllers
         {   
             return View( ); 
         }
-
+        /// <summary> 
+        /// 修改页的qhj
+        /// </summary>
+        /// <returns></returns>
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
