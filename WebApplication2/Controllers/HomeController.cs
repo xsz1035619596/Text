@@ -9,7 +9,7 @@ namespace WebApplication2.Controllers
     public class HomeController : Controller
     {
         /// <summary> 
-        /// 主页的    
+        /// 主页的邱会杰
         /// </summary>
         /// <returns></returns>
         public ActionResult Index()
