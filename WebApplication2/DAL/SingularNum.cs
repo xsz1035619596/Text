@@ -12,8 +12,93 @@ using WebApplication2.Models;
 
 namespace WebApplication2.DAL
 {
-    public class SingularNum
+    public class SingularNum<M> where M : class, new()
     {
+
+        #region MyRegion
+        /// <summary>
+        /// xml文本内容
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="a">实体</param>
+        /// <returns></returns>
+        public static string GetString<T>(M a)
+        {
+            string result = string.Empty;
+            Type t = typeof(T);
+            var y = Activator.CreateInstance(t);
+            foreach (var item in t.GetProperties())
+            {
+                result += string.Format("<{0}>{1}</{0}>", item.Name, item.GetValue(a, null));
+            }
+            return "<soapenv:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ws=\"http://ws.webservice.wondersgroup.com/\">"
+                    + "<soapenv:Header>"
+                    + "<soap:Head soap:actor=\"http://schemas.xmlsoap.org/soap/actor/next\" soap:mustUnderstand=\"0\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+                    + "<soap:username>" + "developer" + "</soap:username>"
+                    + "<soap:password>" + "123321" + "</soap:password>"
+                    + "</soap:Head>"
+                    + "</soapenv:Header>"
+                    + "<soapenv:Body>"
+                 + "<ws:" + t.Name + " soapenv:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">"
+                 + "<xml xsi:type=\"xsd: string\" xs:type=\"type:string\" xmlns:xs=\"http://www.w3.org/2000/XMLSchema-instance\">"
+                 + "<![CDATA["
+                    + "<input>"
+                    + result
+                    + "</input>"
+                 + " ]]></xml>"
+                 + "</ws:" + t.Name + ">"
+                    + "</soapenv:Body>"
+                    + "</soapenv:Envelope>";
+        }
+
+        /// <summary>
+        /// 返回一个xml文件
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="a">实体</param>
+        /// <returns>字符串</returns>
+        public static string GetCreateInstens<T>(M a)
+        {
+            string url = "http://cqjyht.cqhrss.gov.cn/cqhrweb/services/ServiceAgent";
+            //string url = "http://cqjyht.cqhrss.gov.cn/cqhrweb/services/ServiceProxy";
+
+            var requestEncoding = Encoding.UTF8;
+            HttpWebRequest request = null;
+            request = WebRequest.Create(url) as HttpWebRequest;
+            request.Method = "POST";
+            request.Headers.Add("SOAPAction", "");
+            string text = GetString<T>(a);
+            byte[] data = requestEncoding.GetBytes(text);
+            using (Stream stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+            HttpWebResponse ss = request.GetResponse() as HttpWebResponse;
+            Stream ou = ss.GetResponseStream();
+            StreamReader objReader = null;
+            try
+            {
+                objReader = new StreamReader(ou, System.Text.Encoding.GetEncoding("utf-8"));
+            }
+            catch (Exception)
+            {
+
+            }
+            string strHtml = string.Empty,
+                   strLine = string.Empty;
+            strHtml = objReader.ReadToEnd();
+            ou.Dispose();
+            ou.Close();
+
+            return strHtml;
+        }
+        #endregion
+
+
+
+
+
+
         #region 获取公共数据字典
         /// <summary>
         /// 获取公共数据字典。

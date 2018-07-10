@@ -209,7 +209,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\addJobFair.cs" />
+    <Compile Include="Models\addJobFairAddr.cs" />
+    <Compile Include="Models\addPostJob.cs" />
+    <Compile Include="Models\addRelation.cs" />
+    <Compile Include="Models\getDic.cs" />
+    <Compile Include="Models\getJkUserInfo.cs" />
+    <Compile Include="Models\getJobFairDetail.cs" />
+    <Compile Include="Models\getResumeBase.cs" />
+    <Compile Include="Models\getResumeExp.cs" />
+    <Compile Include="Models\getResumeJobWanted.cs" />
     <Compile Include="Models\getUnit.cs" />
+    <Compile Include="Models\getUserInfo.cs" />
     <Compile Include="Models\IdCard.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
